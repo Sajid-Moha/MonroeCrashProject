@@ -21,8 +21,10 @@ def Home():
 @app.route('/processing/', methods=['POST'])
 def ProcessResults():
     try:
-      SetLatLong(request.form.get('Latitude'),
-                  request.form.get('Longitude'))
+      SetLatLong(request.form.get('startLatitude'),
+                  request.form.get('startLongitude'),
+                  request.form.get('endLatitude'),
+                  request.form.get('endLongitude'))
     except:
       return redirect( url_for('Home') )
     
@@ -31,8 +33,10 @@ def ProcessResults():
 @app.route('/results/')
 def Results():
     try:
-      latitude = session['lat']
-      longitude = session['long']
+      session['start_lat']
+      session['start_long']
+      session['end_lat']
+      session['end_long']
     except:
        return redirect( url_for('Home') )       
     

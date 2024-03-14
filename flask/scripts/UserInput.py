@@ -2,25 +2,36 @@
 from flask import session, flash
 
 # Getting the "where"
-def SetLatLong(latitude, longitude):
+def SetLatLong(start_latitude, start_longitude,
+               end_latitude, end_longitude):
     error = False
 
     try:
-      session['lat'] = float(latitude)
+      session['start_lat'] = float(start_latitude)
     except:
-      flash(f'Error converting value of Latitude ({latitude}) to a float', 'error')
+      flash(f'Error converting value of Start Latitude ({start_latitude}) to a float', 'error')
       error = True
     
     try:
-      session['long'] = float(longitude)
+      session['start_long'] = float(start_longitude)
     except:
-      flash(f'Error converting value of Longitude ({longitude}) to a float', 'error')
+      flash(f'Error converting value of Start Longitude ({start_longitude}) to a float', 'error')
+      error = True
+
+    try:
+      session['end_lat'] = float(end_latitude)
+    except:
+      flash(f'Error converting value of End Latitude ({end_latitude}) to a float', 'error')
+      error = True
+    
+    try:
+      session['end_long'] = float(end_longitude)
+    except:
+      flash(f'Error converting value of End Longitude ({end_longitude}) to a float', 'error')
       error = True
 
     if error:
       raise('invalid latitude or longitude')
-    
-# Getting the "when"
 
     
 
