@@ -2,7 +2,7 @@
 from flask import session, flash
 
 # Getting the "where"
-def SetLatLong(start_address, end_address):
+def SetAddress(start_address, end_address):
   error = False
 
   try:

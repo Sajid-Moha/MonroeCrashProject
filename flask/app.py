@@ -8,8 +8,10 @@ from flask import Flask, url_for, render_template
 # session: store information in cookies
 from flask import request, redirect, session
 
-# lat/longitude value verifier
-from scripts.UserInput import SetLatLong, SetTime
+# lat/longitude, time value verifier
+from scripts.UserInput import SetAddress, SetTime
+
+# 
 
 app = Flask(__name__)
 app.secret_key = 'doesntmatter'
@@ -21,7 +23,7 @@ def Home():
 @app.route('/processing/', methods=['POST'])
 def ProcessResults():
     try:
-      SetLatLong(request.form.get('startAddress'),
+      SetAddress(request.form.get('startAddress'),
                   request.form.get('endAddress'))
       SetTime(request.form.get('month'),
               request.form.get('dayOfWeek'),
