@@ -35,4 +35,30 @@ def SetLatLong(start_latitude, start_longitude,
 
     
 
-  
+def SetTime(month, dayOfWeek, time):
+  error = False
+
+  try:
+    session['month'] = month
+  except:
+      flash(f'Error getting Month value with index ({ month })', 'error')
+      error = True
+
+  try:
+    session['dayOfWeek'] = dayOfWeek
+    
+    if dayOfWeek == 6 or dayOfWeek == 7:
+      session['weekend?'] = True
+    else:
+      session['weekend?'] = True
+  except:
+      flash(f'Error getting Day of Week value with index ({ dayOfWeek })', 'error')
+      error = True
+
+
+  try:
+    # time is given as "hh:mm" in 24 hour format
+    session['hour'] = time[0:1]
+  except:
+      flash(f'Error getting hour from Time ({time})', 'error')
+      error = True

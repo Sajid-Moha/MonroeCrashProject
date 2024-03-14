@@ -9,7 +9,7 @@ from flask import Flask, url_for, render_template
 from flask import request, redirect, session
 
 # lat/longitude value verifier
-from scripts.UserInput import SetLatLong
+from scripts.UserInput import SetLatLong, SetTime
 
 app = Flask(__name__)
 app.secret_key = 'doesntmatter'
@@ -25,6 +25,9 @@ def ProcessResults():
                   request.form.get('startLongitude'),
                   request.form.get('endLatitude'),
                   request.form.get('endLongitude'))
+      SetTime(request.form.get('month'),
+              request.form.get('dayOfWeek'),
+              request.form.get('time'))
     except:
       return redirect( url_for('Home') )
     
@@ -33,10 +36,17 @@ def ProcessResults():
 @app.route('/results/')
 def Results():
     try:
+      # where
       session['start_lat']
       session['start_long']
       session['end_lat']
       session['end_long']
+
+      # when
+      session['month']
+      session['dayOfWeek']
+      session['weekend?']
+      session['hour']
     except:
        return redirect( url_for('Home') )       
     
