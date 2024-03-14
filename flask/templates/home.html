@@ -74,7 +74,7 @@
               <span class="fw-semibold">Start Time</span>
               <div class="mb-2 text-start" style="display: grid;">
                 <label for="month">Month:</label>
-                <select id="month" name="month" required>
+                <select id="month" name="month" value="{{ session['month'] if session['month'] is defined else '' }}" required>
                     <option value="" disabled selected>Select Month</option>
                     <option value="1">January</option>
                     <option value="2">February</option>
@@ -92,7 +92,7 @@
               </div>
               <div class="mb-2 text-start" style="display: grid;">
                   <label for="dayOfWeek">Day of Week:</label>
-                  <select id="dayOfWeek" name="dayOfWeek" required>
+                  <select id="dayOfWeek" name="dayOfWeek" value="{{ session['dayOfWeek'] if session['dayOfWeek'] is defined else '' }}" required>
                       <option value="" disabled selected>Select Day of Week</option>
                       <option value="1">Monday</option>
                       <option value="2">Tuesday</option>
@@ -105,7 +105,7 @@
               </div>
               <div class="mb-2 text-start" style="display: grid;">
                   <label for="time">Time:</label>
-                  <input type="time" id="time" name="Time" required>
+                  <input type="time" id="time" name="time" value="{{ session['time'] if session['time'] is defined else '' }}" required>
               </div>
             </div>
           </div>

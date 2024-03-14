@@ -50,4 +50,9 @@ def Results():
     except:
        return redirect( url_for('Home') )       
     
-    return render_template('results.html')
+    # return render_template('results.html')
+
+    from markupsafe import escape
+    return (f'Start Lat: {escape(session['start_lat'])}, start long {escape(session['start_long'])}' +
+           f', End Lat: {escape(session['end_lat'])}, end long {escape(session['end_long'])}' +
+           f', Month: {escape(session['month'])}, dow: {escape(session['dayOfWeek'])}, w?: {escape(session['weekend?'])}, hour: {escape(session['hour'])}')
