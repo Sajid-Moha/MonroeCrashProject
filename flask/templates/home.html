@@ -47,22 +47,22 @@
               <span class="fw-semibold">Start Location</span>
               <div class="mb-2 ms-1 w-100">
                   <label for="startLatitude">Start Latitude:</label>
-                  <input type="number" id="startLatitude" name="startLatitude" step="any" required>
+                  <input type="number" id="startLatitude" name="startLatitude" step="any" value="{{ session['start_lat'] if session['start_lat'] is defined else '' }}" required>
               </div>
               <div class="mb-2 ms-1 w-100">
                   <label for="startLongitude">Start Longitude:</label>
-                  <input type="number" id="startLongitude" name="startLongitude" step="any" required>
+                  <input type="number" id="startLongitude" name="startLongitude" step="any" value="{{ session['start_long'] if session['start_long'] is defined else '' }}" required>
               </div>
             </div>
             <div>
               <span class="fw-semibold">End Location</span>
               <div class="mb-2 ms-1 w-100">
                 <label for="endLatitude">End Latitude:</label>
-                <input type="number" id="endLatitude" name="endLatitude" step="any" required>
+                <input type="number" id="endLatitude" name="endLatitude" step="any" value="{{ session['end_lat'] if session['end_lat'] is defined else '' }}" required>
               </div>
               <div class="mb-2 ms-1 w-100">
                   <label for="endLongitude">End Longitude:</label>
-                  <input type="number" id="endLongitude" name="endLongitude" step="any" required>
+                  <input type="number" id="endLongitude" name="endLongitude" step="any" value="{{ session['end_long'] if session['end_long'] is defined else '' }}" required>
               </div>
             </div>
           </div>
