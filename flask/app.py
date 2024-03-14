@@ -12,6 +12,8 @@ from flask import request, redirect
 
 from flask import session, flash, get_flashed_messages
 
+from scripts.UserInput import SetLatLong
+
 app = Flask(__name__)
 app.secret_key = 'doesntmatter'
 
@@ -38,22 +40,3 @@ def Results():
        return redirect( url_for('Home') )       
     
     return f'Results Page For Latitude {escape(latitude)} and Longitude {escape(longitude)}'
-    
-
-def SetLatLong(latitude, longitude):
-    error = False
-
-    try:
-      session['lat'] = float(latitude)
-    except:
-      flash(f'Error converting value of Latitude ({latitude}) to a float', 'error')
-      error = True
-    
-    try:
-      session['long'] = float(longitude)
-    except:
-      flash(f'Error converting value of Longitude ({longitude}) to a float', 'error')
-      error = True
-
-    if error:
-      raise('invalid latitude or longitude')
