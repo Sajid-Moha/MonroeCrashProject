@@ -15,8 +15,5 @@
   "bugs": {
     "url": "https://github.com/Sajid-Moha/MonroeCrashProject/issues"
   },
-  "homepage": "https://github.com/Sajid-Moha/MonroeCrashProject#readme",
-  "devDependencies": {
-    "tailwindcss": "^3.4.1"
-  }
+  "homepage": "https://github.com/Sajid-Moha/MonroeCrashProject#readme"
 }
