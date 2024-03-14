@@ -6,12 +6,13 @@ from flask import Flask, url_for, render_template
 # request : get data from client
 # redircet : transfer client to other URL
 # session: store information in cookies
-from flask import request, redirect, session
+from flask import request, redirect, session, flash
 
-# lat/longitude, time value verifier
+# address, time value verifier
 from scripts.UserInput import SetAddress, SetTime
 
-# 
+# get safest path
+from scripts.CalculateResults import CalculateResult
 
 app = Flask(__name__)
 app.secret_key = 'doesntmatter'
@@ -31,6 +32,12 @@ def ProcessResults():
     except:
       return redirect( url_for('Home') )
     
+    try:
+       CalculateResult()
+    except:
+      flash(f'Error Calculating Route', 'error')
+      return redirect( url_for('Home') )
+    
     return redirect( url_for('Results') )
 
 @app.route('/results/')
@@ -45,12 +52,13 @@ def Results():
       session['dayOfWeek']
       session['weekend?']
       session['hour']
+
+      # result
+      session['result']
     except:
        return redirect( url_for('Home') )       
     
     # return render_template('results.html')
 
     from markupsafe import escape
-    return (f'Start addy: {escape(session['start_address'])}' +
-           f', End addy: {escape(session['end_address'])}' +
-           f', Month: {escape(session['month'])}, dow: {escape(session['dayOfWeek'])}, w?: {escape(session['weekend?'])}, hour: {escape(session['hour'])}')
+    return (f'result: {escape(session["result"])}')
