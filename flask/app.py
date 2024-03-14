@@ -21,10 +21,8 @@ def Home():
 @app.route('/processing/', methods=['POST'])
 def ProcessResults():
     try:
-      SetLatLong(request.form.get('startLatitude'),
-                  request.form.get('startLongitude'),
-                  request.form.get('endLatitude'),
-                  request.form.get('endLongitude'))
+      SetLatLong(request.form.get('startAddress'),
+                  request.form.get('endAddress'))
       SetTime(request.form.get('month'),
               request.form.get('dayOfWeek'),
               request.form.get('time'))
@@ -37,10 +35,8 @@ def ProcessResults():
 def Results():
     try:
       # where
-      session['start_lat']
-      session['start_long']
-      session['end_lat']
-      session['end_long']
+      session['start_address']
+      session['end_address']
 
       # when
       session['month']
@@ -53,6 +49,6 @@ def Results():
     # return render_template('results.html')
 
     from markupsafe import escape
-    return (f'Start Lat: {escape(session['start_lat'])}, start long {escape(session['start_long'])}' +
-           f', End Lat: {escape(session['end_lat'])}, end long {escape(session['end_long'])}' +
+    return (f'Start addy: {escape(session['start_address'])}' +
+           f', End addy: {escape(session['end_address'])}' +
            f', Month: {escape(session['month'])}, dow: {escape(session['dayOfWeek'])}, w?: {escape(session['weekend?'])}, hour: {escape(session['hour'])}')
