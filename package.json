@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Sajid-Moha/MonroeCrashProject/issues"
   },
-  "homepage": "https://github.com/Sajid-Moha/MonroeCrashProject#readme"
+  "homepage": "https://github.com/Sajid-Moha/MonroeCrashProject#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  }
 }
