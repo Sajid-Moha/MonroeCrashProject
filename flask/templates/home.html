@@ -49,6 +49,7 @@
                   <label for="startAddress">Starting Address:</label>
                   <input type="text" id="startAddress" name="startAddress" value="{{ session['start_address'] if session['start_address'] is defined else '' }}"  required>
               </div>
+              <span class="fw-semibold">End Location</span>
               <div class="mb-2 text-start" style="display: grid;">
                 <label for="endAddress">Target Address:</label>
                 <input type="text" id="endAddress" name="endAddress" value="{{ session['end_address'] if session['end_address'] is defined else '' }}"  required>
