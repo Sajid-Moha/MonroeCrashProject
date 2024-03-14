@@ -3,15 +3,12 @@
 # render_template: provide jinja template for use as return value
 from flask import Flask, url_for, render_template
 
-# escape : prevents code injection into returned html
-from markupsafe import escape
-
 # request : get data from client
 # redircet : transfer client to other URL
-from flask import request, redirect
+# session: store information in cookies
+from flask import request, redirect, session
 
-from flask import session, flash, get_flashed_messages
-
+# lat/longitude value verifier
 from scripts.UserInput import SetLatLong
 
 app = Flask(__name__)
@@ -39,4 +36,4 @@ def Results():
     except:
        return redirect( url_for('Home') )       
     
-    return f'Results Page For Latitude {escape(latitude)} and Longitude {escape(longitude)}'
+    return render_template('results.html')
