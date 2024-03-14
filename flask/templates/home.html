@@ -37,73 +37,76 @@
           Please enter trip details
         </span>
       </div>
-      <form action="{{ url_for('ProcessResults') }}" method="post" class="d-flex flex-column justify-content-center align-items-center">
-        <div id="2col" class="d-flex flex-row text-left mb-3">
-          <div id="where" class="w-50">
+      <form action="{{ url_for('ProcessResults') }}" method="post" class="d-flex flex-column justify-content-center align-items-center w-100">
+        <div id="2col" class="d-flex flex-row text-start mb-3 w-100">
+          <div id="where" class="w-50 d-flex flex-column justify-content-top align-items-center">
             <div class="text-center fs-5 fw-bold">
               Where?
             </div>
-            <div>
+            <div class="text-center">
               <span class="fw-semibold">Start Location</span>
-              <div class="mb-2 ms-1 w-100">
+              <div class="mb-2 text-start" style="display: grid;">
                   <label for="startLatitude">Start Latitude:</label>
-                  <input type="number" id="startLatitude" name="startLatitude" step="any" value="{{ session['start_lat'] if session['start_lat'] is defined else '' }}" required>
+                  <input type="number" id="startLatitude" name="startLatitude" step="any" value="{{ session['start_lat'] if session['start_lat'] is defined else '' }}"  required>
               </div>
-              <div class="mb-2 ms-1 w-100">
+              <div class="mb-2 text-start" style="display: grid;">
                   <label for="startLongitude">Start Longitude:</label>
-                  <input type="number" id="startLongitude" name="startLongitude" step="any" value="{{ session['start_long'] if session['start_long'] is defined else '' }}" required>
+                  <input type="number" id="startLongitude" name="startLongitude" step="any" value="{{ session['start_long'] if session['start_long'] is defined else '' }}"  required>
               </div>
             </div>
-            <div>
+            <div class="text-center">
               <span class="fw-semibold">End Location</span>
-              <div class="mb-2 ms-1 w-100">
+              <div class="mb-2 text-start" style="display: grid;">
                 <label for="endLatitude">End Latitude:</label>
-                <input type="number" id="endLatitude" name="endLatitude" step="any" value="{{ session['end_lat'] if session['end_lat'] is defined else '' }}" required>
+                <input type="number" id="endLatitude" name="endLatitude" step="any" value="{{ session['end_lat'] if session['end_lat'] is defined else '' }}"  required>
               </div>
-              <div class="mb-2 ms-1 w-100">
+              <div class="mb-2 text-start" style="display: grid;">
                   <label for="endLongitude">End Longitude:</label>
-                  <input type="number" id="endLongitude" name="endLongitude" step="any" value="{{ session['end_long'] if session['end_long'] is defined else '' }}" required>
+                  <input type="number" id="endLongitude" name="endLongitude" step="any" value="{{ session['end_long'] if session['end_long'] is defined else '' }}"  required>
               </div>
             </div>
           </div>
-          <div id="when" class="w-50">
+          <div id="when" class="w-50 d-flex flex-column justify-content-top align-items-center">
             <div class="text-center fs-5 fw-bold">
               When
             </div>
-            <div class="mb-2 ms-1 w-100">
-              <label for="month">Month:</label>
-              <select id="month" name="month" required>
-                  <option value="" disabled selected>Select Month</option>
-                  <option value="January">January</option>
-                  <option value="February">February</option>
-                  <option value="March">March</option>
-                  <option value="April">April</option>
-                  <option value="May">May</option>
-                  <option value="June">June</option>
-                  <option value="July">July</option>
-                  <option value="August">August</option>
-                  <option value="September">September</option>
-                  <option value="October">October</option>
-                  <option value="November">November</option>
-                  <option value="December">December</option>
-              </select>
-            </div>
-            <div class="mb-2 ms-1 w-100">
-                <label for="dayOfWeek">Day of Week:</label>
-                <select id="dayOfWeek" name="dayOfWeek" required>
-                    <option value="" disabled selected>Select Day of Week</option>
-                    <option value="Monday">Monday</option>
-                    <option value="Tuesday">Tuesday</option>
-                    <option value="Wednesday">Wednesday</option>
-                    <option value="Thursday">Thursday</option>
-                    <option value="Friday">Friday</option>
-                    <option value="Saturday">Saturday</option>
-                    <option value="Sunday">Sunday</option>
+            <div class="text-center">
+              <span class="fw-semibold">Start Time</span>
+              <div class="mb-2 text-start" style="display: grid;">
+                <label for="month">Month:</label>
+                <select id="month" name="month" required>
+                    <option value="" disabled selected>Select Month</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
                 </select>
-            </div>
-            <div class="mb-2 ms-1 w-100">
-                <label for="time">Time:</label>
-                <input type="time" id="time" name="Time" required>
+              </div>
+              <div class="mb-2 text-start" style="display: grid;">
+                  <label for="dayOfWeek">Day of Week:</label>
+                  <select id="dayOfWeek" name="dayOfWeek" required>
+                      <option value="" disabled selected>Select Day of Week</option>
+                      <option value="1">Monday</option>
+                      <option value="2">Tuesday</option>
+                      <option value="3">Wednesday</option>
+                      <option value="4">Thursday</option>
+                      <option value="5">Friday</option>
+                      <option value="6">Saturday</option>
+                      <option value="7">Sunday</option>
+                  </select>
+              </div>
+              <div class="mb-2 text-start" style="display: grid;">
+                  <label for="time">Time:</label>
+                  <input type="time" id="time" name="Time" required>
+              </div>
             </div>
           </div>
         </div>
