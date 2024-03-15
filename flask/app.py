@@ -58,7 +58,4 @@ def Results():
     except:
        return redirect( url_for('Home') )       
     
-    # return render_template('results.html')
-
-    from markupsafe import escape
-    return (f'result: {escape(session["result"])}')
+    return render_template('results.html')

@@ -1,7 +1,7 @@
 from flask import session, flash
 import googlemaps
 
-from scripts.ResultsHelpers import check_in_monroe
+from scripts.ResultsHelpers import check_in_monroe, predict_new
 
 # Define API keys
 maps = googlemaps.Client(key='AIzaSyA0d67PUz3V85_QpTCcnQ9AdAEka9AJGHM')
@@ -19,7 +19,6 @@ def CalculateResult():
   # "When"
   month = session['month']
   day = session['dayOfWeek']
-  weekend = session['weekend?']
   hour = session['hour']
 
   # Request route from Directions API
@@ -68,14 +67,16 @@ def CalculateResult():
 
           ##############
           # TODO: Run model on end_point latitude/longitude + time (month, day, hour)
-          # Example model_result used
-          model_result = 1
+          # Run model on end_point latitude, end_point longitude, month, day, hour
+          X_new_features = [end_point['lat'], end_point['lng'], month, day, hour]
+
+          model_result = predict_new(X_new_features)
           if model_result == 1:
               pred_crashes_map[routeCtr] += 1
               
-          print(f"Start: {start_address[0]['formatted_address']} ({start_point['lat']}, {start_point['lng']})")
-          print(f"End: {end_address[0]['formatted_address']} ({end_point['lat']}, {end_point['lng']})")
-          print('---')
+          #print(f"Start: {start_address[0]['formatted_address']} ({start_point['lat']}, {start_point['lng']})")
+          #print(f"End: {end_address[0]['formatted_address']} ({end_point['lat']}, {end_point['lng']})")
+          #print('---')
           
       routeCtr += 1
   # Calculate safest route (least "Yes" crash predictions
