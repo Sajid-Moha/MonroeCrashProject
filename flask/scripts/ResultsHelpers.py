@@ -17,45 +17,61 @@ def check_in_monroe(location, api):
     except:
        raise('error attempting to retrieve location info from lat/lng')
        return
-    print(county_name, state_name)
 
     if reverse_geocode_result:
-      try:
-        county_info = reverse_geocode_result['address_components'][4]
-        county_name = county_info['long_name']
-        state_info = reverse_geocode_result['address_components'][5]
-        state_name = state_info['long_name']
-      except:
-         raise('Error attempting to get county info')
-         return
+      county_info = reverse_geocode_result[0]['address_components'][4]
+      county_name = county_info['long_name']
+      state_info = reverse_geocode_result[0]['address_components'][5]
+      state_name = state_info['long_name']
 
       if (county_name == 'Monroe County' and state_name == 'Indiana'):
+         print('county success')
          return True
     
+    print('county fail')
     return False
 
 def preprocess(df):
-    scaler = StandardScaler()
+  data = pd.DataFrame({
+      'Latitude': df['Latitude'],
+      'Longitude': df['Longitude'],
+      'Month': df['Month'],
+      'Day': df['Day'],
+      'Hour': df['Hour']
+  })
 
-    cats = ['Month', 'Day', 'Hour']
-    # Separate numerical and categorical columns
-    numerical_cols = df.select_dtypes(include=['float64']).columns
-    categorical_cols = [col for col in cats if col in df.columns]
+  # Define the values for Month, Hour, and Day
+  months = list(range(1, 13))
+  hours = list(range(24))
+  days = list(range(1, 8))
 
-    # One-hot encode categorical columns
-    one_hot_encoded = pd.get_dummies(df[categorical_cols], columns=categorical_cols).astype(int)
+  # Convert Month, Hour, and Day columns to categorical dtype
+  data['Month'] = pd.Categorical(data['Month'], categories=months)
+  data['Hour'] = pd.Categorical(data['Hour'], categories=hours)
+  data['Day'] = pd.Categorical(data['Day'], categories=days)
 
-    # Concatenate numerical columns and one-hot encoded categorical columns
-    df = pd.concat([df[numerical_cols], one_hot_encoded], axis=1)
-
-    df['Longitude'] = scaler.fit_transform(df['Longitude'].values.reshape(-1, 1))
-    df['Latitude'] = scaler.fit_transform(df['Latitude'].values.reshape(-1, 1))
-    return df
+  # Perform one-hot encoding for Month, Hour, and Day columns
+  encoded_data = pd.get_dummies(data, columns=['Month', 'Day', 'Hour']).astype(int)
+  scaler = StandardScaler()
+  encoded_data['Latitude'] = scaler.fit_transform(encoded_data['Latitude'].values.reshape(-1, 1))
+  encoded_data['Longitude'] = scaler.fit_transform(encoded_data['Longitude'].values.reshape(-1, 1))
+  return encoded_data
 
 def predict_new(features):
-    model = joblib.load('.\\model\\crash_prediction_model.joblib')
+    import os
+    current_dir = os.path.dirname(__file__)
+    relative_path = os.path.join(current_dir, 'model', 'crash_prediction_model.joblib')
+    try:
+      model = joblib.load(relative_path)
+    except Exception as e:
+       flash(f'error loading model: {e}')
+
     X_new = pd.DataFrame([features], columns=['Latitude', 'Longitude', 'Month', 'Day', 'Hour'])
     X_new = preprocess(X_new)
-    
-    y_pred = model.predict(X_new)
+
+    print(X_new)
+    try:
+      y_pred = model.predict(X_new)
+    except Exception as e:
+       flash(f'predicting error: {e}')
     return y_pred

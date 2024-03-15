@@ -48,6 +48,7 @@ def CalculateResult():
             flash(f'Destination address not in Monroe County: ({ destination }), {steps[len(steps)-1]["end_location"]}', 'error')
             raise('Destination address not in Monroe County')
       except Exception as e:
+         print('ouch')
          flash(f'{e}')
       
       # Iterate over steps
@@ -66,13 +67,18 @@ def CalculateResult():
              raise('Error requesting lat/long for start/end')
 
           ##############
+          print('model')
           # TODO: Run model on end_point latitude/longitude + time (month, day, hour)
           # Run model on end_point latitude, end_point longitude, month, day, hour
           X_new_features = [end_point['lat'], end_point['lng'], month, day, hour]
-
-          model_result = predict_new(X_new_features)
+          try:
+            model_result = predict_new(X_new_features)
+          except:
+             flash("model exception")
+             raise("model exception")
           if model_result == 1:
               pred_crashes_map[routeCtr] += 1
+          print('model success')
               
           #print(f"Start: {start_address[0]['formatted_address']} ({start_point['lat']}, {start_point['lng']})")
           #print(f"End: {end_address[0]['formatted_address']} ({end_point['lat']}, {end_point['lng']})")
